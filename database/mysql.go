@@ -92,6 +92,7 @@ func (db *Connector) Query(sql string, params ...interface{}) (QueryResult, erro
 	common.Log.Debug("Execute SQL with DSN(%s/%s) : %s", db.Addr, db.Database, fmt.Sprintf(sql, params...))
 	_, err = db.Conn.Exec("USE `" + db.Database + "`")
 	if err != nil {
+		panic(err)
 		common.Log.Error(err.Error())
 		return res, err
 	}
