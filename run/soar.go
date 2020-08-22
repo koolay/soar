@@ -16,7 +16,10 @@ import (
 	"github.com/percona/go-mysql/query"
 )
 
-func Run(sqlCommand string) (*Output, error) {
+// Run 运行soar命令
+// loglevel 日志级别，这里使用了 beego 的 log 包
+// [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug].
+func Run(sqlCommand string, loglevel int) (*Output, error) {
 	// 全局变量
 	var err error
 	var sql string         // 单条评审指定的 sql 或 explain
@@ -32,6 +35,8 @@ func Run(sqlCommand string) (*Output, error) {
 	// config init
 	common.Config.LogOutput = "console"
 	common.Config.ReportType = "json"
+	common.Config.LogLevel = loglevel
+	common.Log.SetLevel(loglevel)
 
 	// 环境初始化，连接检查线上环境+构建测试环境
 	// vEnv, rEnv := env.BuildEnv()

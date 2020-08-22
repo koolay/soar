@@ -1,19 +1,17 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/XiaoMi/soar/run"
 )
 
 func main() {
-	sql := "select * from tab"
-	output, err := run.Run(sql)
+	sql := "select t1.* from tab t1 inner join tb2 as t2 on t1.id = t2.fid"
+	output, err := run.Run(sql, 7)
 	if err != nil {
 		panic(err)
 	}
 
-	data, _ := json.Marshal(output)
-	fmt.Printf("%+v", data)
+	fmt.Printf("%+v", output)
 }
