@@ -19,11 +19,10 @@ import (
 // Run 运行soar命令
 // loglevel 日志级别，这里使用了 beego 的 log 包
 // [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug].
-func Run(sqlCommand string, loglevel int) (*Output, error) {
+func Run(currentDB, sqlCommand string, loglevel int) (*Output, error) {
 	// 全局变量
 	var err error
 	var sql string         // 单条评审指定的 sql 或 explain
-	var currentDB string   // 当前 SQL 使用的 database
 	sqlCounter := 1        // SQL 计数器
 	lineCounter := 1       // 行计数器
 	var alterSQLs []string // 待评审的 SQL 中所有 ALTER 请求
